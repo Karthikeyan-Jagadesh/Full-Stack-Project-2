@@ -1,0 +1,13 @@
+com\locationalarm\repository\TripAlertRepository.class
+com\locationalarm\config\OracleConnectionManager.class
+com\locationalarm\controller\AuthController.class
+com\locationalarm\LocationAlarmApplication.class
+com\locationalarm\service\AuthService.class
+com\locationalarm\model\TripAlert.class
+com\locationalarm\controller\TripController.class
+com\locationalarm\model\User.class
+com\locationalarm\service\TripService.class
+com\locationalarm\controller\PageController.class
+com\locationalarm\repository\UserRepository.class
+com\locationalarm\dto\AuthRequest.class
+com\locationalarm\dto\TripAlertRequest.class

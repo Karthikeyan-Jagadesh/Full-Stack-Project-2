@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RouteWake Neon Console</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <link rel="stylesheet" href="/css/glass-ui.css">
+</head>
+<body class="dashboard-body">
+<main class="dashboard-shell dashboard-shell-cyber">
+    <header class="topbar topbar-cyber panel">
+        <div class="topbar-copy">
+            <p class="eyebrow">RouteWake // Cyber Transit Core</p>
+            <h1>Neon route command deck</h1>
+            <p class="section-copy hero-inline">Keep the ride map, live telemetry, and wake-alert trigger inside one responsive control surface built for passengers in motion.</p>
+        </div>
+        <div class="topbar-meta">
+            <div class="meta-pill">
+                <span>System status</span>
+                <strong id="alarm-status">Standby</strong>
+            </div>
+            <button id="logout-button" class="ghost-button" type="button">Sign out</button>
+        </div>
+    </header>
+
+    <section class="dashboard-marquee dashboard-marquee-cyber">
+        <article class="marquee-card marquee-card-story">
+            <span>Route story</span>
+            <strong id="trip-summary">No active route feed. Select a destination node and start the monitor.</strong>
+        </article>
+        <article class="marquee-card">
+            <span>Trigger type</span>
+            <strong id="alert-mode-display">Distance pulse</strong>
+        </article>
+        <article class="marquee-card">
+            <span>Node distance</span>
+            <strong id="remaining-distance">-</strong>
+        </article>
+        <article class="marquee-card">
+            <span>Arrival clock</span>
+            <strong id="remaining-time">-</strong>
+        </article>
+    </section>
+
+    <section class="cyber-grid">
+        <article class="panel map-stage map-stage-cyber">
+            <div class="map-stage-copy">
+                <p class="eyebrow">Route Canvas</p>
+                <h2>Current signal, destination node, and route line inside one tactical display.</h2>
+                <p class="section-copy">Search a node, pin it manually, then keep the passenger and destination visible together while the wake alert monitors the ride.</p>
+            </div>
+            <div class="map-panel">
+                <div class="map-header">
+                    <div class="map-legend">
+                        <span><i class="legend-dot current-dot"></i>Current signal</span>
+                        <span><i class="legend-dot destination-dot"></i>Destination node</span>
+                    </div>
+                    <div class="map-actions">
+                        <button id="focus-current-button" class="ghost-button" type="button">Focus signal</button>
+                        <button id="fit-route-button" class="ghost-button" type="button">Fit route</button>
+                    </div>
+                </div>
+                <div class="map-info-strip">
+                    <div class="map-info-chip">
+                        <span>Current</span>
+                        <strong id="current-node-label">Awaiting signal</strong>
+                    </div>
+                    <div class="map-info-chip">
+                        <span>Destination</span>
+                        <strong id="destination-node-label">No node locked</strong>
+                    </div>
+                    <div class="map-info-chip">
+                        <span>Mode</span>
+                        <strong id="mode-node-label">Distance pulse</strong>
+                    </div>
+                </div>
+                <div id="map"></div>
+                <p class="helper-text map-helper">Tap anywhere on the map to mark the destination node manually, or use search to lock a route target faster. Once both points are live, the map traces the road route automatically.</p>
+            </div>
+        </article>
+
+        <aside class="control-column">
+            <article class="panel command-dock command-dock-cyber">
+                <div class="dock-section dock-search">
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow">Destination Lock</p>
+                            <h2>Scan and pin a route node</h2>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <input id="search-input" type="text" placeholder="Search stop, landmark, or route node">
+                        <button id="search-button" class="primary-button" type="button">Scan</button>
+                    </div>
+                    <div id="search-results" class="search-results"></div>
+                    <label>
+                        Locked destination
+                        <input id="destination-name" type="text" placeholder="Choose from search or map" readonly>
+                    </label>
+                    <div class="coordinate-row">
+                        <label>
+                            Latitude
+                            <input id="destination-lat" type="text" readonly>
+                        </label>
+                        <label>
+                            Longitude
+                            <input id="destination-lng" type="text" readonly>
+                        </label>
+                    </div>
+                    <p class="helper-text">Use search for quick picks. Use the map when you need exact placement.</p>
+                </div>
+
+                <div class="dock-section dock-alarm">
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow">Alert Engine</p>
+                            <h2>Arm the passenger wake trigger</h2>
+                        </div>
+                    </div>
+                    <div class="segmented-control segmented-control-wide">
+                        <button class="mode-button active" data-mode="DISTANCE" type="button">Distance pulse</button>
+                        <button class="mode-button" data-mode="TIME" type="button">ETA pulse</button>
+                    </div>
+                    <div id="distance-config" class="alarm-config active">
+                        <label>
+                            Fire the alert when the passenger is this many kilometers away
+                            <input id="distance-threshold" type="number" min="1" step="1" value="2">
+                        </label>
+                    </div>
+                    <div id="time-config" class="alarm-config">
+                        <label>
+                            Fire the alert when arrival time falls to this many minutes
+                            <input id="time-threshold" type="number" min="1" step="1" value="10">
+                        </label>
+                    </div>
+                    <div class="action-row action-row-wide">
+                        <button id="save-trip-button" class="primary-button" type="button">Start monitor</button>
+                        <button id="stop-trip-button" class="ghost-button" type="button">Stop monitor</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="panel metrics-panel metrics-panel-cyber">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Telemetry Core</p>
+                        <h2>Live movement feed</h2>
+                    </div>
+                </div>
+                <div class="metric-grid metric-grid-tight">
+                    <div class="metric-card">
+                        <span>Node distance</span>
+                        <strong id="remaining-distance-mirror">-</strong>
+                    </div>
+                    <div class="metric-card">
+                        <span>Arrival clock</span>
+                        <strong id="remaining-time-mirror">-</strong>
+                    </div>
+                    <div class="metric-card">
+                        <span>Motion speed</span>
+                        <strong id="current-speed">-</strong>
+                    </div>
+                    <div class="metric-card">
+                        <span>System note</span>
+                        <strong id="status-echo">Standing by</strong>
+                    </div>
+                </div>
+                <p id="dashboard-message" class="status-message"></p>
+            </article>
+        </aside>
+    </section>
+
+    <section class="ledger-zone">
+        <article class="panel history-panel history-panel-modern history-panel-cyber">
+            <div class="section-heading history-header">
+                <div>
+                    <p class="eyebrow">Trip Ledger</p>
+                    <h2>Recent alert sessions</h2>
+                    <p class="section-copy">Saved destination sessions, trigger settings, and monitor states from the passenger command deck.</p>
+                </div>
+                <button id="refresh-history-button" class="ghost-button" type="button">Refresh ledger</button>
+            </div>
+            <div id="history-list" class="history-list">
+                <p class="empty-state">No alert sessions recorded yet.</p>
+            </div>
+        </article>
+    </section>
+</main>
+
+<audio id="alarm-audio" preload="auto">
+    <source src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" type="audio/mpeg">
+</audio>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+<script src="/js/dashboard.js"></script>
+</body>
+</html>

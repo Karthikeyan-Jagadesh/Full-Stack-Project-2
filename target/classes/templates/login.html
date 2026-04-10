@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RouteWake // Neon Transit Access</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/glass-ui.css">
+</head>
+<body class="auth-body">
+<main class="auth-shell">
+    <section class="auth-hero auth-hero-modern">
+        <div class="hero-badge-row">
+            <p class="eyebrow">RouteWake // Neon Transit Grid</p>
+            <span class="hero-chip">Live passenger wake-alert deck</span>
+        </div>
+        <div class="hero-content">
+            <div>
+                <h1>Read the route. Mark the node. Trigger the wake alert before arrival.</h1>
+                <p class="hero-copy">
+                    RouteWake works like a passenger command console. Search the destination node, pin it on the live route map,
+                    follow the movement feed in real time, and fire a wake alert before the bus reaches the selected stop.
+                </p>
+            </div>
+            <div class="hero-grid">
+                <article class="hero-tile hero-tile-large">
+                    <span class="hero-tile-label">Node Targeting</span>
+                    <strong>Search the stop or lock the destination directly on the live route map</strong>
+                    <p>Choose the node the way passengers actually remember it: by stop name, nearby landmark, or exact map point.</p>
+                </article>
+                <article class="hero-tile">
+                    <span class="hero-tile-label">Alert Modes</span>
+                    <strong>Distance and ETA triggers</strong>
+                </article>
+                <article class="hero-tile">
+                    <span class="hero-tile-label">Live Tracking</span>
+                    <strong>Continuous passenger signal</strong>
+                </article>
+                <article class="hero-tile">
+                    <span class="hero-tile-label">Data Sync</span>
+                    <strong>Oracle ledger and JDBC pipeline</strong>
+                </article>
+            </div>
+            <div class="auth-preview-panel">
+                <div class="preview-header">
+                    <span class="preview-badge">Live route preview</span>
+                    <span class="preview-status">Wake engine armed</span>
+                </div>
+                <div class="preview-canvas">
+                    <div class="preview-line"></div>
+                    <span class="preview-node preview-node-start">Bus live</span>
+                    <span class="preview-node preview-node-mid">Passenger zone</span>
+                    <span class="preview-node preview-node-end">Destination</span>
+                </div>
+                <div class="preview-metrics">
+                    <div class="preview-metric">
+                        <span>Alert mode</span>
+                        <strong>ETA pulse</strong>
+                    </div>
+                    <div class="preview-metric">
+                        <span>Signal state</span>
+                        <strong>Realtime</strong>
+                    </div>
+                    <div class="preview-metric">
+                        <span>Ledger</span>
+                        <strong>Oracle sync</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="auth-panel auth-panel-modern">
+        <div class="auth-panel-top">
+            <div>
+                <p class="eyebrow">Access Layer</p>
+                <h2>Enter the passenger command deck</h2>
+            </div>
+            <div class="tabs">
+                <button class="tab-button active" data-tab-target="login-form">Login</button>
+                <button class="tab-button" data-tab-target="register-form">Register</button>
+            </div>
+        </div>
+
+        <form id="login-form" class="auth-form active">
+            <div class="form-intro">
+                <h3>Login to the live route deck</h3>
+                <p>Open the map canvas, alert controls, telemetry feed, and recent session ledger.</p>
+            </div>
+            <label>
+                Access email
+                <input type="email" name="email" placeholder="operator@routewake.ai" required>
+            </label>
+            <label>
+                Access key
+                <input type="password" name="password" placeholder="Enter access key" required>
+            </label>
+            <button type="submit" class="primary-button">Launch command deck</button>
+        </form>
+
+        <form id="register-form" class="auth-form">
+            <div class="form-intro">
+                <h3>Register a new passenger profile</h3>
+                <p>Create a secure profile to save destination sessions, triggers, and trip history in Oracle.</p>
+            </div>
+            <label>
+                Passenger name
+                <input type="text" name="fullName" placeholder="Enter passenger profile name" required>
+            </label>
+            <label>
+                Contact email
+                <input type="email" name="email" placeholder="passenger@routewake.ai" required>
+            </label>
+            <label>
+                Access key
+                <input type="password" name="password" placeholder="Create access key" required>
+            </label>
+            <button type="submit" class="primary-button">Create passenger profile</button>
+        </form>
+
+        <p id="auth-message" class="status-message"></p>
+    </section>
+</main>
+
+<script src="/js/login.js"></script>
+</body>
+</html>
