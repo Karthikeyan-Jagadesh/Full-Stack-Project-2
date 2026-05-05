@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Location Alarm Tracker
 
 This is a Java web project I built for travelers. The idea is simple — instead of worrying about missing your stop, the app tracks your location and alerts you before you reach your destination.
@@ -72,5 +71,3 @@ http://localhost:8080
 
 ---
 =======
-# Full-Stack-Project-2
->>>>>>> 0711d6311363dadf92e2d6d7a842d820e2623d3b
