@@ -70,4 +70,3 @@ http://localhost:8080
 * starting a new trip will close the previous one
 
 ---
-=======
