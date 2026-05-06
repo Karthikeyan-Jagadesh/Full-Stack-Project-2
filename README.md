@@ -1,4 +1,4 @@
-# RouteWake 
+# RouteWake | An Location based travel assistant
 
 A Spring Boot web application that helps travelers avoid missing their stop —
 track your live location, set a destination, and get alerted before you arrive.
@@ -7,7 +7,7 @@ track your live location, set a destination, and get alerted before you arrive.
 
 ## system.identity
 ~~~
-name        : RouteWake
+name        : location tracker
 type        : full-stack web application
 architecture: MVC (Spring Boot + Thymeleaf)
 runtime     : Java 17+
@@ -30,8 +30,11 @@ distance and ETA based alert modes.
 
 ## system.visuals
 
+### login
 ![login](./Screenshots/loginpage.png)
-![admin](./Screenshot/homepage.png)
+
+### homepage
+![home](./Screenshots/homepage.png)
 
 ---
 
